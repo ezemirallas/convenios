@@ -3,10 +3,10 @@ services:
 
     # PHP Service
     php:
-        container_name: php
+        container_name: phpconvenio
         build:
             context: .
-            target: php
+            target: phpconvenio
             args:
                 - APP_ENV=${APP_ENV}
         environment:
@@ -16,11 +16,11 @@ services:
         volumes:
             - ./:/var/www
         ports:
-            - 8000:8000
+            - 8001:8000
         depends_on:
             - database
         networks:
-            - networkphplar    
+            - networkphplarconvenios    
     # Database Server
     #database:
     #    container_name: database
@@ -37,16 +37,16 @@ services:
     database:
           image: mysql:8.0
           ports:
-            - 3306:3306
+            - 3000:3000
           expose:
-            - "3306"
+            - "3000"
         # cap_add:
         #- SYS_NICE # CAP_SYS_NICE
           volumes:
             - ./cache/mysql:/var/lib/mysql
             - ./conf-mysql.cnf:/etc/mysql/conf.d/mysql.cnf
           environment:
-           - MYSQL_DATABASE=laravel8crud
+           - MYSQL_DATABASE=convenios
            - MYSQL_USER=root
            - MYSQL_PASSWORD=password
            - MYSQL_ROOT_PASSWORD=password        
@@ -54,9 +54,9 @@ services:
           volumes:
            - db-data:/var/lib/mysql
           networks:
-             - networkphplar
+             - networkphplarconvenios
 networks: 
-     networkphplar:        
+     networkphplarconvenios:        
 
 volumes:
     db-data: ~
